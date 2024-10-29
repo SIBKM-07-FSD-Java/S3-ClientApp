@@ -1,0 +1,8 @@
+# setup port
+server:
+  port: 9010
+
+spring:
+  # setup project name
+  application:
+    name: Client App
