@@ -30,7 +30,9 @@
     <section class="container">
       <div class="my-4 d-flex justify-content-between align-items-center">
         <h1 class="fw-bold">List of Region</h1>
-        <a href="/region/create" class="btn btn-success btn-sm fw-bold">Add Region</a>
+        <a href="/region/create" class="btn btn-success btn-sm fw-bold"
+          >Add Region</a
+        >
       </div>
 
       <table
@@ -38,19 +40,38 @@
       >
         <thead class="table-dark">
           <tr>
-            <th class="col-2">Id</th>
+            <th class="col-2">No.</th>
             <th class="col-4">Name</th>
             <th class="col-6">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr th:each="region : ${regions}">
-            <td th:text="${region.id}"></td>
+          <tr th:each="region, key : ${regions}">
+            <td th:text="${key.count}"></td>
             <td th:text="${region.name}"></td>
             <td class="d-flex justify-content-center gap-3">
-              <a href="#" class="btn btn-primary btn-sm">Detail</a>
-              <a href="#" class="btn btn-warning btn-sm">Update</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
+              <a
+                th:href="@{/region/{id} (id = ${region.id})}"
+                class="btn btn-primary btn-sm"
+                >Detail</a
+              >
+              <a
+                th:href="@{/region/update/{id} (id = ${region.id})}"
+                class="btn btn-warning btn-sm"
+                >Update</a
+              >
+              <form
+                th:action="@{/region/{id} (id = ${region.id})}"
+                th:method="DELETE"
+              >
+                <button
+                  class="btn btn-danger btn-sm"
+                  type="submit"
+                  onclick="return confirm('Are you sure to want delete it???')"
+                >
+                  Delete
+                </button>
+              </form>
             </td>
           </tr>
         </tbody>

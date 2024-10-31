@@ -23,17 +23,21 @@
     <link rel="stylesheet" th:href="@{css/index.css}" />
 
     <!-- title web -->
-    <title>Create Region</title>
+    <title>Update Region</title>
   </head>
   <body>
     <!-- content -->
     <section class="container">
       <div class="card mt-5">
         <h5 class="card-header fw-bold text-center bg-primary bg-opacity-50">
-          Create of Region
+          Update of Region
         </h5>
         <div class="card-body">
-          <form th:action="@{/region}" th:method="POST" th:object="${region}">
+          <form
+            th:action="@{/region/{id} (id = ${region.id})}"
+            th:method="PUT"
+            th:object="${region}"
+          >
             <!-- name -->
             <div class="input-group flex-nowrap">
               <span
