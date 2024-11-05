@@ -22,17 +22,20 @@ public class RegionController {
   @GetMapping
   public String getAll(Model model) {
     model.addAttribute("regions", regionService.getAll());
+    model.addAttribute("isActive", "region");
     return "region/index";
   }
 
   @GetMapping("/{id}")
   public String getById(@PathVariable Integer id, Model model) {
+    model.addAttribute("isActive", "region");
     model.addAttribute("region", regionService.getById(id));
     return "region/detail";
   }
 
   @GetMapping("/create")
   public String createView(Region region, Model model) {
+    model.addAttribute("isActive", "region");
     model.addAttribute("region", new Region());
     return "region/create-form";
   }
@@ -49,6 +52,7 @@ public class RegionController {
     Region region,
     Model model
   ) {
+    model.addAttribute("isActive", "region");
     model.addAttribute("region", regionService.getById(id));
     return "region/update-form";
   }

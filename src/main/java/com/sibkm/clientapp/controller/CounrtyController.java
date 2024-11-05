@@ -25,12 +25,14 @@ public class CounrtyController {
   @GetMapping
   public String getAll(Model model) {
     model.addAttribute("countries", countryService.getAll());
+    model.addAttribute("isActive", "country");
     return "country/index";
   }
 
   // todo: without dto
   @GetMapping("/{id}")
   public String getById(@PathVariable Integer id, Model model) {
+    model.addAttribute("isActive", "country");
     model.addAttribute("country", countryService.getById(id));
     return "country/detail";
   }
@@ -38,6 +40,7 @@ public class CounrtyController {
   // todo: with dto
   @GetMapping("/res/{id}")
   public String getByIdDTO(@PathVariable Integer id, Model model) {
+    model.addAttribute("isActive", "country");
     model.addAttribute("country", countryService.getByIdDTO(id));
     return "country/detail";
   }
@@ -47,6 +50,7 @@ public class CounrtyController {
   public String createView(Country country, Model model) {
     model.addAttribute("country", new Country());
     model.addAttribute("regions", regionService.getAll());
+    model.addAttribute("isActive", "country");
     return "country/create-form";
   }
 
@@ -61,6 +65,7 @@ public class CounrtyController {
   public String createViewDTO(CountryRequest countryRequest, Model model) {
     model.addAttribute("country", new CountryRequest());
     model.addAttribute("regions", regionService.getAll());
+    model.addAttribute("isActive", "country");
     return "country/create-form_dto";
   }
 
@@ -78,6 +83,7 @@ public class CounrtyController {
   ) {
     model.addAttribute("country", countryService.getById(id));
     model.addAttribute("regions", regionService.getAll());
+    model.addAttribute("isActive", "country");
     return "country/update-form";
   }
 
