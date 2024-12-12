@@ -29,8 +29,7 @@ public class CountryService {
       .exchange(
         url,
         HttpMethod.GET,
-        new HttpEntity<>(BasicHeaderHelper.createBasicHeaders()),
-        // null,
+        null,
         new ParameterizedTypeReference<List<Country>>() {}
       )
       .getBody();
@@ -77,10 +76,7 @@ public class CountryService {
       .exchange(
         url.concat("/dto-manual"),
         HttpMethod.POST,
-        new HttpEntity<CountryRequest>(
-          countryRequest,
-          BasicHeaderHelper.createBasicHeaders()
-        ),
+        new HttpEntity<CountryRequest>(countryRequest),
         new ParameterizedTypeReference<Country>() {}
       )
       .getBody();

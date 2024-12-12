@@ -7,6 +7,6 @@
 ### Progress:
 - Login ✅
 - generete basic header ✅
-- set CSRF untuk di JS
+- set CSRF untuk di JS ✅
 - interceptor
 - extras

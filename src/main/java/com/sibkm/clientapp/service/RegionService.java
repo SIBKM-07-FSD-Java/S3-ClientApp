@@ -1,7 +1,6 @@
 package com.sibkm.clientapp.service;
 
 import com.sibkm.clientapp.entity.Region;
-import com.sibkm.clientapp.helper.BasicHeaderHelper;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class RegionService {
       .exchange(
         url,
         HttpMethod.GET,
-        new HttpEntity<>(BasicHeaderHelper.createBasicHeaders()),
+        null,
         new ParameterizedTypeReference<List<Region>>() {}
       )
       .getBody();
@@ -37,13 +36,7 @@ public class RegionService {
     log.info("endpoint serverapp = {}", url.concat("/" + id));
 
     return restTemplate
-      .exchange(
-        url.concat("/" + id),
-        HttpMethod.GET,
-        new HttpEntity<>(BasicHeaderHelper.createBasicHeaders()),
-        // null,
-        Region.class
-      )
+      .exchange(url.concat("/" + id), HttpMethod.GET, null, Region.class)
       .getBody();
   }
 
@@ -52,17 +45,14 @@ public class RegionService {
       .exchange(
         url,
         HttpMethod.POST,
-        new HttpEntity<Region>(region, BasicHeaderHelper.createBasicHeaders()),
+        new HttpEntity<Region>(region),
         new ParameterizedTypeReference<Region>() {}
       )
       .getBody();
   }
 
   public Region update(Integer id, Region region) {
-    HttpEntity<Region> request = new HttpEntity<Region>(
-      region,
-      BasicHeaderHelper.createBasicHeaders()
-    );
+    HttpEntity<Region> request = new HttpEntity<Region>(region);
     return restTemplate
       .exchange(url.concat("/" + id), HttpMethod.PUT, request, Region.class)
       .getBody();
@@ -70,13 +60,7 @@ public class RegionService {
 
   public Region delete(Integer id) {
     return restTemplate
-      .exchange(
-        url.concat("/" + id),
-        HttpMethod.DELETE,
-        new HttpEntity<>(BasicHeaderHelper.createBasicHeaders()),
-        // null,
-        Region.class
-      )
+      .exchange(url.concat("/" + id), HttpMethod.DELETE, null, Region.class)
       .getBody();
   }
 }
