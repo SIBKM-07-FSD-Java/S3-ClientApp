@@ -1,6 +1,7 @@
 package com.sibkm.clientapp.service;
 
 import com.sibkm.clientapp.entity.Country;
+import com.sibkm.clientapp.helper.BasicHeaderHelper;
 import com.sibkm.clientapp.model.request.CountryRequest;
 import com.sibkm.clientapp.model.response.CountryResponse;
 import java.util.List;
@@ -28,7 +29,8 @@ public class CountryService {
       .exchange(
         url,
         HttpMethod.GET,
-        null,
+        new HttpEntity<>(BasicHeaderHelper.createBasicHeaders()),
+        // null,
         new ParameterizedTypeReference<List<Country>>() {}
       )
       .getBody();
@@ -75,7 +77,10 @@ public class CountryService {
       .exchange(
         url.concat("/dto-manual"),
         HttpMethod.POST,
-        new HttpEntity<CountryRequest>(countryRequest),
+        new HttpEntity<CountryRequest>(
+          countryRequest,
+          BasicHeaderHelper.createBasicHeaders()
+        ),
         new ParameterizedTypeReference<Country>() {}
       )
       .getBody();

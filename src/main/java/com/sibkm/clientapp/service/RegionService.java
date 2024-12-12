@@ -1,13 +1,13 @@
 package com.sibkm.clientapp.service;
 
 import com.sibkm.clientapp.entity.Region;
+import com.sibkm.clientapp.helper.BasicHeaderHelper;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,14 +23,11 @@ public class RegionService {
   private RestTemplate restTemplate;
 
   public List<Region> getAll() {
-    // ? format => "Authorization", "Basic username:password"
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Authorization", "Basic amFrYTpqYWth");
     return restTemplate
       .exchange(
         url,
         HttpMethod.GET,
-        new HttpEntity<>(headers),
+        new HttpEntity<>(BasicHeaderHelper.createBasicHeaders()),
         new ParameterizedTypeReference<List<Region>>() {}
       )
       .getBody();
@@ -40,7 +37,13 @@ public class RegionService {
     log.info("endpoint serverapp = {}", url.concat("/" + id));
 
     return restTemplate
-      .exchange(url.concat("/" + id), HttpMethod.GET, null, Region.class)
+      .exchange(
+        url.concat("/" + id),
+        HttpMethod.GET,
+        new HttpEntity<>(BasicHeaderHelper.createBasicHeaders()),
+        // null,
+        Region.class
+      )
       .getBody();
   }
 
@@ -49,14 +52,17 @@ public class RegionService {
       .exchange(
         url,
         HttpMethod.POST,
-        new HttpEntity<Region>(region),
+        new HttpEntity<Region>(region, BasicHeaderHelper.createBasicHeaders()),
         new ParameterizedTypeReference<Region>() {}
       )
       .getBody();
   }
 
   public Region update(Integer id, Region region) {
-    HttpEntity<Region> request = new HttpEntity<Region>(region);
+    HttpEntity<Region> request = new HttpEntity<Region>(
+      region,
+      BasicHeaderHelper.createBasicHeaders()
+    );
     return restTemplate
       .exchange(url.concat("/" + id), HttpMethod.PUT, request, Region.class)
       .getBody();
@@ -64,7 +70,13 @@ public class RegionService {
 
   public Region delete(Integer id) {
     return restTemplate
-      .exchange(url.concat("/" + id), HttpMethod.DELETE, null, Region.class)
+      .exchange(
+        url.concat("/" + id),
+        HttpMethod.DELETE,
+        new HttpEntity<>(BasicHeaderHelper.createBasicHeaders()),
+        // null,
+        Region.class
+      )
       .getBody();
   }
 }
