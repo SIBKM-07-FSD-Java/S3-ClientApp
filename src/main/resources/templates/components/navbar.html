@@ -46,6 +46,7 @@
                   class="nav-link"
                   th:href="@{/region}"
                   th:classappend="${isActive} == 'region' ? 'active fw-bold' : ''"
+                  sec:authorize="hasRole('ADMIN')"
                   >Region</a
                 >
               </li>
@@ -54,6 +55,7 @@
                   class="nav-link"
                   th:href="@{/country}"
                   th:classappend="${isActive} == 'country' ? 'active fw-bold' : ''"
+                  sec:authorize="hasAnyRole('ADMIN', 'USER')"
                   >Country</a
                 >
               </li>

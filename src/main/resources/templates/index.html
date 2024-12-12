@@ -14,7 +14,7 @@
     <!-- content -->
     <section class="container" layout:fragment="content">
       <h1 class="mt-5 fw-bold">
-        ✨ Hello, teman-teman <span th:text="${name}"></span> ✨
+        ✨ Hello, <span sec:authentication="name"></span> ✨
       </h1>
     </section>
   </body>
