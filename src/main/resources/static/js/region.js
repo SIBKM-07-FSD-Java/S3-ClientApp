@@ -68,6 +68,7 @@ $("#create-region").click((event) => {
       method: "POST",
       url: "/api/region",
       dataType: "JSON",
+      beforeSend: addCSRFToken(),
       contentType: "application/json",
       data: JSON.stringify({
         name: valueName,
@@ -151,6 +152,7 @@ $("#update-region").click((event) => {
       method: "PUT",
       url: `/api/region/${valueId}`,
       dataType: "JSON",
+      beforeSend: addCSRFToken(),
       contentType: "application/json",
       data: JSON.stringify(updateData),
       success: (res) => {
@@ -200,6 +202,7 @@ function deleteRegion(id) {
           method: "DELETE",
           url: `/api/region/${id}`,
           dataType: "JSON",
+          beforeSend: addCSRFToken(),
           contentType: "application/json",
           success: (res) => {
             // console.log(res);
